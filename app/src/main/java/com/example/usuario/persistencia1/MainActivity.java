@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,32 +27,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        try {
+        ArrayList<Usuario> usuarios = Utils.leerUsuarios(this);
+        if (usuarios == null) {
+            usuarios = new ArrayList<>();
 
-        }
+            usuarios.add(Utils.crearUsuario(this));
+            Utils.crearArchivo(this, usuarios);
 
 
-        try (FileOutputStream out = this.openFileOutput("Usuario.dat", this.MODE_PRIVATE); ObjectOutputStream file = new ObjectOutputStream(out)){
 
-            EditText et_name = (EditText) findViewById(R.id.et_name);
-            EditText et_last = (EditText) findViewById(R.id.et_last);
+            //Intent intent = new Intent(this, DestinoActivity.class);
+            //startActivity(intent);
+        }else{
 
-            String nombre, apellido;
-
-            nombre = et_name.getText().toString();
-            apellido = et_last.getText().toString();
-
-            Usuario user = new Usuario(nombre, apellido);
-
-            file.writeObject(user);
-            file.close();
-            Intent intent = new Intent(this, DestinoActivity.class);
-            startActivity(intent);
-
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "El fichero no existe compi", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "Ha fallado el ObjectXXX y tal", Toast.LENGTH_LONG).show();
+            usuarios.add(Utils.crearUsuario(this));
+            Utils.crearArchivo(this, usuarios);
         }
     }
 }

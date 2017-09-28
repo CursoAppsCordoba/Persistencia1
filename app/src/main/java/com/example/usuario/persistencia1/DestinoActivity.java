@@ -20,7 +20,7 @@ public class DestinoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_destino);
         TextView tv = (TextView) findViewById(R.id.textView3);
-        Usuario usuario = Utils.leerUser(this);
-        tv.setText(usuario.getNombre() + " " + usuario.getApellido());
+        //Usuario usuario = Utils.leerUser(this);
+        //tv.setText(usuario.getNombre() + " " + usuario.getApellido());
     }
 }
